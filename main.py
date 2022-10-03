@@ -1,78 +1,102 @@
-from tkinter import *
+import tkinter as tk
+
 from callbacks import *
 
-window = Tk()
 
-window['bg'] = '#e8e8e8'
-window.title('Tkinter practice')
-window.geometry('1280x720')
+class App(tk.Tk):
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self, *args, **kwargs)
 
+        # set window initial parameters
+        self.title('Tkinter practice')
+        self.geometry('1280x720')
 
-input_border = Frame(master=window, background='#6b6b6b', borderwidth=0)
-input_frame = Frame(master=input_border, background='#e8e8e8')
-
-second_input_grid = Frame(master=input_frame, background='#e8e8e8')
-second_input_grid.grid(row=1, column=1, sticky='w')
-
-input_label = Label(master=second_input_grid, text='Begin coast:', background='#e8e8e8')
-input_label.grid(row=1, column=1, sticky='w')
-begin_coast = Entry(master=second_input_grid, width=20, font=('Arial', 14))
-begin_coast.focus_set()
-begin_coast.grid(row=1, column=2, sticky='w', padx=5, pady=5)
+        MainPage(self)
 
 
-input_label = Label(master=second_input_grid, text='Storage term:', background='#e8e8e8')
-input_label.grid(row=2, column=1, sticky='w')
-save_date = Entry(master=second_input_grid, width=20, font=('Arial', 14))
-save_date.grid(row=2, column=2, sticky='w', padx=5, pady=5)
+class MainPage(tk.Frame):
+    def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self,  bg='#e8e8e8', *args, **kwargs)
+        self.pack(side='top', fill='both', expand=True)
+
+        # -------If in future will be needed to use border--------
+        # input_border = tk.Frame(master=self, background='#6b6b6b', borderwidth=0)
+        # input_border.pack(side='top', fill='both', expand=True)
+
+        input_grid = InputGrid(self)
+        answer_grid = AnswerGrid(self)
+        ButtonsGrid(master=self, input_grid=input_grid, answer_grid=answer_grid)
 
 
-input_label = Label(master=second_input_grid, text='Monthly payment:', background='#e8e8e8')
-input_label.grid(row=3, column=1, sticky='w')
-month_pay = Entry(master=second_input_grid, width=20, font=('Arial', 14))
-month_pay.grid(row=3, column=2, sticky='w', padx=5, pady=5)
+class InputGrid(tk.Frame):
+    def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self,  bg='#e8e8e8', *args, **kwargs)
+        self.grid(row=1, column=1, sticky='w')
 
 
-input_label = Label(master=second_input_grid, text='% for storage per year:', background='#e8e8e8')
-input_label.grid(row=4, column=1, sticky='w')
-percent = Entry(master=second_input_grid, width=20, font=('Arial', 14))
-percent.grid(row=4, column=2, sticky='w', padx=5, pady=5)
+        input_label = tk.Label(master=self, text='Begin coast:', background='#e8e8e8')
+        input_label.grid(row=1, column=1, sticky='w')
+        self.begin_coast = tk.Entry(master=self, width=20, font=('Arial', 14))
+        self.begin_coast.focus_set()
+        self.begin_coast.grid(row=1, column=2, sticky='w', padx=5, pady=5)
 
 
-input_frame.pack(fill=X)
-input_border.pack(fill=X)
+        input_label = tk.Label(master=self, text='Storage term:', background='#e8e8e8')
+        input_label.grid(row=2, column=1, sticky='w')
+        self.save_date = tk.Entry(master=self, width=20, font=('Arial', 14))
+        self.save_date.grid(row=2, column=2, sticky='w', padx=5, pady=5)
 
 
-
-answer_grid = Frame(master=input_frame, background='#e8e8e8')
-answer_grid.grid(row=1, column=2, sticky='n')
-
-a_label = Label(master=answer_grid, text='Answer:', background='#e8e8e8')
-a_label.grid(row=1, column=1, sticky='w')
+        input_label = tk.Label(master=self, text='Monthly payment:', background='#e8e8e8')
+        input_label.grid(row=3, column=1, sticky='w')
+        self.month_pay = tk.Entry(master=self, width=20, font=('Arial', 14))
+        self.month_pay.grid(row=3, column=2, sticky='w', padx=5, pady=5)
 
 
-answer_label = Label(master=answer_grid, text='', background='#e8e8e8')
-answer_label.grid(row=1, column=2, sticky='w')
+        input_label = tk.Label(master=self, text='% for storage per year:', background='#e8e8e8')
+        input_label.grid(row=4, column=1, sticky='w')
+        self.percent = tk.Entry(master=self, width=20, font=('Arial', 14))
+        self.percent.grid(row=4, column=2, sticky='w', padx=5, pady=5)
 
 
+class AnswerGrid(tk.Frame):
+    def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self,  bg='#e8e8e8', *args, **kwargs)
+        self.grid(row=1, column=2, sticky='n')
 
-input_grid = Frame(master=input_frame, background='#e8e8e8')
-input_grid.grid(row=2, column=1, sticky='w')
+        a_label = tk.Label(master=self, text='Answer:', background='#e8e8e8')
+        a_label.grid(row=1, column=1, sticky='w')
 
-input_btn1 = Button(master=input_grid,
-                   text='Find % for storage per year.',
-                   command=lambda: payment_percent_for_saving(answer_label, float(begin_coast.get()), float(save_date.get()), float(month_pay.get())))
-input_btn1.grid(row=1, column=1, sticky='w')
+        self.answer_label = tk.Label(master=self, text='', background='#e8e8e8')
+        self.answer_label.grid(row=1, column=2, sticky='w')
 
-input_btn2 = Button(master=input_grid,
-                   text='Find storage term.',
-                   command=lambda: date_save(answer_label, float(percent.get()), float(month_pay.get()), float(begin_coast.get())))
-input_btn2.grid(row=2, column=1, sticky='w')
-
-input_btn3 = Button(master=input_grid,
-                   text='Find begin coast.',
-                   command=lambda: find_begin_coast(answer_label, float(save_date.get()), float(month_pay.get()), float(percent.get())))
-input_btn3.grid(row=3, column=1, sticky='w')
+    def change_text(self, text):
+        self.answer_label.config(text=text)
 
 
-window.mainloop()
+class ButtonsGrid(tk.Frame):
+    def __init__(self, input_grid, answer_grid, *args, **kwargs):
+        tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
+        self.grid(row=2, column=1, sticky='w')
+        self.input_grid = input_grid
+        self.answer_grid = answer_grid
+
+        input_btn1 = tk.Button(master=self,
+                           text='Find % for storage per year.',
+                           command=lambda: payment_percent_for_saving(answer_grid.change_text, float(input_grid.begin_coast.get()), float(input_grid.save_date.get()), float(input_grid.month_pay.get())))
+        input_btn1.grid(row=1, column=1, sticky='w')
+
+        input_btn2 = tk.Button(master=self,
+                           text='Find storage term.',
+                           command=lambda: date_save(answer_grid.change_text, float(input_grid.percent.get()), float(input_grid.month_pay.get()), float(input_grid.begin_coast.get())))
+        input_btn2.grid(row=2, column=1, sticky='w')
+
+        input_btn3 = tk.Button(master=self,
+                           text='Find begin coast.',
+                           command=lambda: find_begin_coast(answer_grid.change_text, float(input_grid.save_date.get()), float(input_grid.month_pay.get()), float(input_grid.percent.get())))
+        input_btn3.grid(row=3, column=1, sticky='w')
+
+
+if __name__ == '__main__':
+    app = App()
+    app.mainloop()
