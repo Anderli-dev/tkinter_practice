@@ -10,7 +10,9 @@ class App(tk.Tk):
 
         # set window initial parameters
         self.title('Tkinter practice')
-        self.geometry('1280x720')
+        self.geometry('800x300')
+        self.resizable(False, False)
+        self.configure(background='#e8e8e8')
 
         MainPage(self)
 
@@ -18,14 +20,23 @@ class App(tk.Tk):
 class MainPage(tk.Frame):
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
-        self.pack(side='top', fill='both', expand=True)
+        self.pack(fill='x', expand=True)
+        self.columnconfigure(2, weight=1)
 
         # -------If in future will be needed to use border--------
         # input_border = tk.Frame(master=self, background='#6b6b6b', borderwidth=0)
         # input_border.pack(side='top', fill='both', expand=True)
 
-        input_grid = InputGrid(self)
         answer_grid = AnswerGrid(self)
+        TaskFrame(master=self, answer_grid=answer_grid)
+
+
+class TaskFrame(tk.Frame):
+    def __init__(self, answer_grid, *args, **kwargs):
+        tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
+        self.grid(row=1, column=1)
+
+        input_grid = InputGrid(self)
         ButtonsGrid(master=self, input_grid=input_grid, answer_grid=answer_grid)
 
 
@@ -47,25 +58,10 @@ class InputGrid(tk.Frame):
         self.percent.grid(row=4, column=1, sticky='ew', padx=5, pady=5)
 
 
-class AnswerGrid(tk.Frame):
-    def __init__(self, *args, **kwargs):
-        tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
-        self.grid(row=1, column=2, sticky='n')
-
-        a_label = tk.Label(master=self, text='Answer:', background='#e8e8e8')
-        a_label.grid(row=1, column=1, sticky='w')
-
-        self.answer_label = tk.Label(master=self, text='', background='#e8e8e8')
-        self.answer_label.grid(row=1, column=2, sticky='w')
-
-    def change_text(self, text):
-        self.answer_label.config(text=text)
-
-
 class ButtonsGrid(tk.Frame):
     def __init__(self, input_grid, answer_grid, *args, **kwargs):
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
-        self.grid(row=2, column=1, sticky='w')
+        self.grid(row=2, column=1, pady=(10, 0))
 
         self.input_grid = input_grid
         self.answer_grid = answer_grid
@@ -77,7 +73,7 @@ class ButtonsGrid(tk.Frame):
                       float(input_grid.begin_coast.entry.get()),
                       float(input_grid.save_date.entry.get()),
                       float(input_grid.month_pay.entry.get())
-                  )).grid(row=1, column=1, sticky='w')
+                  )).grid(row=1, column=1, sticky='ew')
 
         tk.Button(master=self,
                   text='Find storage term.',
@@ -86,7 +82,7 @@ class ButtonsGrid(tk.Frame):
                       float(input_grid.percent.entry.get()),
                       float(input_grid.month_pay.entry.get()),
                       float(input_grid.begin_coast.entry.get())
-                  )).grid(row=2, column=1, sticky='w')
+                  )).grid(row=2, column=1, sticky='ew')
 
         tk.Button(master=self,
                   text='Find begin coast.',
@@ -95,7 +91,23 @@ class ButtonsGrid(tk.Frame):
                       float(input_grid.save_date.entry.get()),
                       float(input_grid.month_pay.entry.get()),
                       float(input_grid.percent.entry.get())
-                  )).grid(row=3, column=1, sticky='w')
+                  )).grid(row=3, column=1, sticky='ew')
+
+
+class AnswerGrid(tk.Frame):
+    def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
+        self.grid(row=1, column=2, sticky='nsew')
+        self.columnconfigure(0, weight=1)
+
+        a_label = tk.Label(master=self, font=('Arial', 16), text='ANSWER', background='#e8e8e8')
+        a_label.grid(sticky='ew')
+
+        self.answer_label = tk.Label(master=self, font=('Arial', 16), text='', background='#e8e8e8')
+        self.answer_label.grid()
+
+    def change_text(self, text):
+        self.answer_label.config(text=text)
 
 
 if __name__ == '__main__':
