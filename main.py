@@ -32,20 +32,19 @@ class MainPage(tk.Frame):
 class InputGrid(tk.Frame):
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
-        self.grid(row=1, column=1, sticky='w')
+        self.grid(row=1, column=1)
 
-        self.begin_coast = Input(master=self, text='Begin coast:')
-        self.begin_coast.focus_set()
-        self.begin_coast.grid(row=1, column=1, sticky='w', padx=5, pady=5)
+        self.begin_coast = Input(master=self, text='Begin coast:', focus_set=True)
+        self.begin_coast.grid(row=1, column=1, sticky='ew', padx=5, pady=5)
 
         self.save_date = Input(master=self, text='Storage term:')
-        self.save_date.grid(row=2, column=1, sticky='w', padx=5, pady=5)
+        self.save_date.grid(row=2, column=1, sticky='ew', padx=5, pady=5)
 
         self.month_pay = Input(master=self, text='Monthly payment:')
-        self.month_pay.grid(row=3, column=1, sticky='w', padx=5, pady=5)
+        self.month_pay.grid(row=3, column=1, sticky='ew', padx=5, pady=5)
 
         self.percent = Input(master=self, text='% for storage per year:')
-        self.percent.grid(row=4, column=1, sticky='w', padx=5, pady=5)
+        self.percent.grid(row=4, column=1, sticky='ew', padx=5, pady=5)
 
 
 class AnswerGrid(tk.Frame):
