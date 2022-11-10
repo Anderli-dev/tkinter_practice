@@ -70,27 +70,27 @@ class ButtonsGrid(tk.Frame):
                   text='Find % for storage per year.',
                   command=lambda: payment_percent_for_saving(
                       answer_grid.change_text,
-                      float(input_grid.begin_coast.entry.get()),
-                      float(input_grid.save_date.entry.get()),
-                      float(input_grid.month_pay.entry.get())
+                      input_grid.begin_coast.entry.get(),
+                      input_grid.save_date.entry.get(),
+                      input_grid.month_pay.entry.get()
                   )).grid(row=1, column=1, sticky='ew')
 
         tk.Button(master=self,
                   text='Find storage term.',
                   command=lambda: date_save(
                       answer_grid.change_text,
-                      float(input_grid.percent.entry.get()),
-                      float(input_grid.month_pay.entry.get()),
-                      float(input_grid.begin_coast.entry.get())
+                      input_grid.percent.entry.get(),
+                      input_grid.month_pay.entry.get(),
+                      input_grid.begin_coast.entry.get()
                   )).grid(row=2, column=1, sticky='ew')
 
         tk.Button(master=self,
                   text='Find begin coast.',
                   command=lambda: find_begin_coast(
                       answer_grid.change_text,
-                      float(input_grid.save_date.entry.get()),
-                      float(input_grid.month_pay.entry.get()),
-                      float(input_grid.percent.entry.get())
+                      input_grid.save_date.entry.get(),
+                      input_grid.month_pay.entry.get(),
+                      input_grid.percent.entry.get()
                   )).grid(row=3, column=1, sticky='ew')
 
 
