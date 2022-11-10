@@ -4,4 +4,4 @@ Program calculates tasks given to me at the university:
 2. Find the % for product storage (per month and per year), if the storage period is 3.5 years, the product owner pays UAH 2,500.00 for storage per month. The initial cost of the product is UAH 125,000.00.
 3. Find the initial cost of storing products, if the storage period is 5 years, the owner of the contained products pays UAH 1,500.00 for storage, % for storage is 18% per year.
 
-![Appearance](https://github.com/Anderli-dev/tkinter_practice/assets/Screenshot_1.png?raw=true)
+![Appearance](https://github.com/Anderli-dev/tkinter_practice/blob/master/assets/Screenshot_1.png?raw=true)
