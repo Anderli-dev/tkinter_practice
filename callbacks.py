@@ -1,3 +1,7 @@
+"""
+    Functions for calculating answer
+"""
+
 import math
 from validate_input_data import validate_input_data
 

@@ -2,7 +2,15 @@ import tkinter as tk
 
 
 class Input(tk.Frame):
+    """ This input combines default tk input with text """
     def __init__(self, text, focus_set=False, *args, **kwargs):
+        """
+        Options:
+        :param text: str
+        :param focus_set: default False
+        :param args
+        :param kwargs
+        """
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
         self.text = text
         self.grid_columnconfigure(1, weight=1)

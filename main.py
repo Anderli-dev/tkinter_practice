@@ -18,6 +18,7 @@ class App(tk.Tk):
 
 
 class MainPage(tk.Frame):
+    """ Block with 2 main part """
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
         self.pack(fill='x', expand=True)
@@ -26,21 +27,26 @@ class MainPage(tk.Frame):
         # -------If in future will be needed to use border--------
         # input_border = tk.Frame(master=self, background='#6b6b6b', borderwidth=0)
         # input_border.pack(side='top', fill='both', expand=True)
+
+        # creating global var for using in other part of program
         global answer_grid
         answer_grid = AnswerGrid(self)
         TaskFrame(master=self)
 
 
 class TaskFrame(tk.Frame):
+    """ Block with buttons and inputs """
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
         self.grid(row=1, column=1)
 
         input_grid = InputGrid(self)
+        # use this variable to collect data by buttons
         ButtonsGrid(master=self, input_grid=input_grid)
 
 
 class InputGrid(tk.Frame):
+    """ Inputs block """
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
         self.grid(row=1, column=1)
@@ -59,11 +65,13 @@ class InputGrid(tk.Frame):
 
 
 class ButtonsGrid(tk.Frame):
+    """ Buttons block """
     def __init__(self, input_grid, *args, **kwargs):
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
         self.grid(row=2, column=1, pady=(10, 0))
 
         self.input_grid = input_grid
+
         global answer_grid
         self.answer_grid = answer_grid
 
@@ -96,6 +104,7 @@ class ButtonsGrid(tk.Frame):
 
 
 class AnswerGrid(tk.Frame):
+    """ Answer block """
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
         self.grid(row=1, column=2, sticky='nsew')
@@ -107,6 +116,7 @@ class AnswerGrid(tk.Frame):
         self.answer_label = tk.Label(master=self, font=('Arial', 16), text='', background='#e8e8e8')
         self.answer_label.grid()
 
+    # this function gives button ability to change text when clicked
     def change_text(self, text):
         self.answer_label.config(text=text)
 
