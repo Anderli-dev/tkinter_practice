@@ -26,18 +26,18 @@ class MainPage(tk.Frame):
         # -------If in future will be needed to use border--------
         # input_border = tk.Frame(master=self, background='#6b6b6b', borderwidth=0)
         # input_border.pack(side='top', fill='both', expand=True)
-
+        global answer_grid
         answer_grid = AnswerGrid(self)
-        TaskFrame(master=self, answer_grid=answer_grid)
+        TaskFrame(master=self)
 
 
 class TaskFrame(tk.Frame):
-    def __init__(self, answer_grid, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
         self.grid(row=1, column=1)
 
         input_grid = InputGrid(self)
-        ButtonsGrid(master=self, input_grid=input_grid, answer_grid=answer_grid)
+        ButtonsGrid(master=self, input_grid=input_grid)
 
 
 class InputGrid(tk.Frame):
@@ -59,11 +59,12 @@ class InputGrid(tk.Frame):
 
 
 class ButtonsGrid(tk.Frame):
-    def __init__(self, input_grid, answer_grid, *args, **kwargs):
+    def __init__(self, input_grid, *args, **kwargs):
         tk.Frame.__init__(self, bg='#e8e8e8', *args, **kwargs)
         self.grid(row=2, column=1, pady=(10, 0))
 
         self.input_grid = input_grid
+        global answer_grid
         self.answer_grid = answer_grid
 
         tk.Button(master=self,
